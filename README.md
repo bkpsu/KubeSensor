@@ -5,15 +5,15 @@ Repository for the Kube home automation multi sensor platform
 
 The Kube V2 builds on the previous [design](https://www.thingiverse.com/thing:2539897), incorporating improvements to modularity, support for additional sensors, and building ease.
 
-<img src="images/kubev1v2sbs.jpg" width=40%>
+<img src="images/kubev1v2sbs.jpg" width=40%>    
 
-### Original Kube (left) and Kube V2 (right)
+##### Original Kube (left) and Kube V2 (right)
 
 The main design improvement for Kube V2 is that all components are installed on dedicated PCBs, removing the need for wiring, and the PCBs are connected to each other via long headers, which allow the different "modules" to snap together to form a complete Kube.
 
 <img src="images/kubev2-snap.jpg" width=40%>
 
-### OLED module (top) with male headers that snap into the base board (bottom) with tabs on the 3d printed enclosures holding the module in place
+##### OLED module (top) with male headers that snap into the base board (bottom) with tabs on the 3d printed enclosures holding the module in place
 
 The 6-pin header has been populated with I2C signals from the NodeMCU (D1/D2), D4 pin for LED control, and 5V and 3V3 power supply pins with ground. This allows building various different designs of the "stack", and future expansion of the Kube platform, via I2C driven "submodules". The initial design contains four modules, including:
 
