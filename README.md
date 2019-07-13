@@ -45,6 +45,8 @@ The Kube Base module is the only **required** board in the Kube stack. It contai
 <img src="images\kubev2-baseboard-render.png" width=300>
 
 TOP: (NodeMCU side)
+
+
 |Device|Usage|Notes|
 |:--------|:-----|-------|
 |EXT|Used for external sensor connections, e.g. [HC-SR501](https://amzn.to/2l9G0zl) PIR motion sensor (D5 NodeMCU pin)|VCC pin is tied to JP1|
@@ -57,6 +59,8 @@ TOP: (NodeMCU side)
 <img src="images\kubev2-baseboard-bottom.png" width=300>
 
 BOTTOM:
+
+
 |Device|Usage|Notes|
 |:--------|:-----|-------|
 |D1BYP, D2BYP|Used to shift (to 5V via IC1) or bypass (3.3V from the NodeMCU) the I2C Clock (D1, SCL) and Data (D2, SDA) pins within the I2C/LED header|Solder middle pad to either the SHFT (for 5V) or BYP (for 3.3v) pads.|
