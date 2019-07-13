@@ -40,7 +40,11 @@ This section will describe the currently available Kube module boards in detail,
 
 <img src="images\kubev2-baseboard.jpg" width=300>
 
-The Kube Base module is the only **required** board in the Kube stack. It contains the headers for a [NodeMCU](https://amzn.to/2l9GGET) v0.9, v2 (LoLin v3 works, but won't fit the enclosure), as well as breakout headers for all of the NodeMCU pins. In addition, it contains the following features/headers:
+The Kube Base module is the only **required** board in the Kube stack. It contains the headers for a [NodeMCU](https://amzn.to/2l9GGET) v0.9, v2 (LoLin v3 works, but won't fit the enclosure), as well as breakout headers for all of the NodeMCU pins. With just the Kube Base module, a NodeMCU, a DHT22 sensor, and an OLED screen, you can create [this sensor](https://www.thingiverse.com/thing:2539897):
+
+<img src="images\kubev1.png" width=300>
+
+The base module contains the following features/headers:
 
 <img src="images\kubev2-baseboard-render.png" width=300>
 
@@ -67,15 +71,33 @@ BOTTOM:
 |D4BYP|Used to shift (to 5V via IC1) or bypass (3.3V from the NodeMCU) the D4 LED pin within the I2C/LED header|Solder middle pad to either the SHFT (for 5V) or BYP (for 3.3v) pads.|
 |D5BYP|Used to shift (to 5V via IC1) or bypass (3.3V from the NodeMCU) the D5 EXT pin within the EXT sensor header|Solder middle pad to either the SHFT (for 5V) or BYP (for 3.3v) pads.|
 
-The schematic for the Kube baseboard is shown below: 
+The full schematic for the Kube baseboard is shown below: 
 
 <img src="images\Kube-Base-Schematic.png">
 
-2. Power Supply Module
+### 2. Power Supply Module
 
-3. Analog/Digital I/O module
+<img src="images\kubev2-psuboard.jpg" width=300>
 
-4. OLED/AmbiMate MS4 module
+The full schematic for the Kube Power Supply submodule is shown below:
+
+<img src="images\Kube-Module-PSU-Schematic.png">
+
+### 3. Analog/Digital I/O module
+
+<img src="images\kubev2-ioboard.jpg" width=300>
+
+The full schematic for the Kube IO submodule is shown below:
+
+<img src="images\Kube-Module-ADIO-Schematic.png">
+
+### 4. OLED/AmbiMate MS4 module
+
+<img src="images\OLED.jpg" width=300>
+
+The full schematic for the Kube OLED/AmbiMate submodule is shown below:
+
+<img src="images\Kube-Module-OLED-Schematic.png">
 
 ---
 
