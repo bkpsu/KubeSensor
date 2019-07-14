@@ -53,12 +53,12 @@ TOP: (NodeMCU side)
 
 |Device|Usage|Notes|
 |:--------|:-----|-------|
-|EXT|Used for external sensor connections, e.g. [HC-SR501](https://amzn.to/2l9G0zl) PIR motion sensor (D5 NodeMCU pin)|VCC pin is tied to JP1|
-|JP1|Selects 5V or 3.3V supply voltage for the EXT header|Does *not* affect D5 voltage range|
+|EXT|Used for external sensor connections, e.g. [HC-SR501](https://amzn.to/2l9G0zl) PIR motion sensor (D5 NodeMCU pin)|VCC pin is tied to JP1, sourcing either 3.3V or 5V DC|
+|JP1|Selects 5V or 3.3V supply voltage for the EXT header|Does *not* affect D5 pin voltage range|
 |IC1|[74HCT125N](https://amzn.to/2l9FBwP) 4-channel fast level shifter|Used for I2C/LED and EXT signal pins; Great for LED pixels|
 |D1|[BAT43](https://amzn.to/2jFCRqv) Schottky Diode|Used between RST and D0 pins on the NodeMCU to prevent boot-up issues during flashing|
 |DHT|[DHT22](https://amzn.to/2l98yZL) Temperature/Humidity sensor|Used when base baord is used as a remote temperature/humidity sensor; uses D6 pin on NodeMCU|
-|I2C/LED|I2C bus connector header, to allow *daughter-boards* to connect to the Kube base board|Has both 5V and 3.3V pins, GND, SCL (D1) and SDA (D2), as well as an additional digital I/O pin (D4), commonly used in LED strip controller firmware|
+|I2C/LED|I2C bus connector header, to allow *daughter-boards* to connect to the Kube base board and to each other|Has both 5V and 3.3V pins, GND, SCL (D1) and SDA (D2), as well as an additional digital I/O pin (D4), commonly used in LED strip controller firmware|
 
 <img src="images\kubev2-baseboard-bottom.png" width=300>
 
@@ -79,6 +79,20 @@ The full schematic for the Kube baseboard is shown below:
 
 <img src="images\kubev2-psuboard.jpg" width=300>
 
+The Kube Power supply submodule offers several options to provide the 5VDC power required to run the NodeMCU and the entire Kube stack. It is *generally* not required, since it's perfectly fine to power the Kube with just a USB power supply via the NodeMCU's micro-USB port (accessible via a hole in the base module's enclosure), but if you're going to use more sensors, IO boards, or other external devices, it *is recommended* to supply power to the Kube stack via this PSU board module.
+
+The Kube PS board module provides three possible configurations, each allowing different input voltages, with 5V DC output.
+
+1. Using a [MeanWell IRM-03-5](https://amzn.to/2lbSsym) AC/DC power supply (110VAC in, 5VDC out) for a wall-pluggable unit
+2. Using [MeanWell SLC03x](https://www.arrow.com/en/products/slc03b-05/mean-well-enterprises) series DC-DC power supplies for multiple input options (12j/24VDC, Power-over-Ethernet, etc)
+3. Using a [Rectifier](https://amzn.to/2lin9SL) and a [Buck Converter](https://amzn.to/2lkQhZH) to convert low-voltage AC (e.g. a door bell transformer or HVAC thermostat power) to power the kube stack.
+
+***NOTE***: **BE EXTREMELY CAREFUL WHEN USING THE KUBE PS MODULE WITH AC POWER. THE PCB TRACES ON THE BOTTOM OF THE BOARD WILL HAVE LIVE AC VOLTAGE ON THEM. IT IS BEST TO KEEP THE UNIT UNPLUGGED WHILE ASSEMBLING/DISSASEMBLING THE KUBE STACK.**
+
+Regardless of which of the 3 power methods you're using, the power input wiring will go through the [2-pin screw terminal](https://amzn.to/2lhCMtC) (X1), with Line or DC+ on the left terminal, and Neutral or DC- on the right terminal. The line/DC+ line is [fuse-protected](https://amzn.to/2jPolfY) prior to going to the power supplies. Secure the input wiring with a zip-tie through the two holes drilled below the X1 connector.
+
+<img src="images\kubev2-psuboard-top.png" width=300>
+
 The full schematic for the Kube Power Supply submodule is shown below:
 
 <img src="images\Kube-Module-PSU-Schematic.png">
@@ -86,6 +100,40 @@ The full schematic for the Kube Power Supply submodule is shown below:
 ### 3. Analog/Digital I/O module
 
 <img src="images\kubev2-ioboard.jpg" width=300>
+
+The ADIO Kube submodule can be used when more I/O is required than the NodeMCU GPIO pins provide, or for a more precise way to bring in analog inputs into the Kube sensor.
+
+The ADIO submodule provides space for the [MCP23017](https://amzn.to/2lg6Qpt) 16-channel digital I/O expander, as well as a [ADS1115](https://amzn.to/2lgUYDz) 4-channel 16-bit analog ADC module. In addition, the MCP23017 address pins have been broken out into three headers (AD0, AD1, AD2), which allow addressing up to 8 different MCP23017 chips. In theory, you could stack 8 ADIO submoodules in the Kube stack, for a total of 128 digital I/O pins!
+
+<img src="images\kubev2-adio-top.png" width=300>
+
+The MCP23017 addressing is handled via jumpers on the AD0, AD1 and AD2 headers. Jumpering the left pin to the middle pin sets that address bit HIGH (1) and jumpering the right pin to the middle pin sets it LOW (0). The following table shows the complete I2C address scheme based on jumper settings:
+
+|AD0|AD1|AD2|I2C Address|
+|---|---|---|-----|
+|0|0|0|0x20|
+|1|0|0|0x21|
+|0|1|0|0x22|
+|1|1|0|0x23|
+|0|0|1|0x24|
+|1|0|1|0x25|
+|0|1|1|0x26|
+|1|1|1|0x27|
+
+The rest of the devices on the ADIO submodule are described below:
+
+|Device|Usage|Notes|
+|:--------|:-----|-------|
+|IC1|[MCP23017](https://amzn.to/2lg6Qpt) I/O Expander|16 channel digital I/O expander|
+|ADS1115|[ADS1115](https://amzn.to/2lgUYDz)|4 channel 16-bit analog ADC module (can also use [ADS1015](https://amzn.to/2lcyVOj), 12-bit ADC)|
+|X1|Channels 1 through 4 (top to bottom) of the MCP23017|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|X2|Channels 5 through 8 (top to bottom) of the MCP23017|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|X3|Channels 9 through 12 (top to bottom) of the MCP23017|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|X4|Channels 13 through 16 (top to bottom) of the MCP23017|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|X5|Channels 1 through 4 (top to bottom) of the ADS1115|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|X6|GND terminal for the I/O signals|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|X7|5V power terminal for the I/O signals|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|I2C/LED|I2C bus connector header, to allow *daughter-boards* to connect to the Kube base board and to each other|Has both 5V and 3.3V pins, GND, SCL (D1) and SDA (D2), as well as an additional digital I/O pin (D4), commonly used in LED strip controller firmware|
 
 The full schematic for the Kube IO submodule is shown below:
 
@@ -103,7 +151,7 @@ The full schematic for the Kube OLED/AmbiMate submodule is shown below:
 
 ## Software
 
-Use [ESPEasy](https://www.letscontrolit.com/espeasy/) firmware to easily connect the different sensors to the NodeMCU, and send them to your favorite databse, or home automation program.
+Use [ESPEasy](https://www.letscontrolit.com/espeasy/) firmware to easily connect the different sensors to the NodeMCU, and send them to your favorite database, or home automation program.
 
 ---
 
