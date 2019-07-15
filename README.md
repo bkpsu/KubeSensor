@@ -46,10 +46,9 @@ The Kube Base module is the only **required** board in the Kube stack. It contai
 
 The base module contains the following features/headers:
 
+**TOP**: (NodeMCU side)
+
 <img src="images\kubev2-baseboard-render.png" width=300>
-
-TOP: (NodeMCU side)
-
 
 |Device|Usage|Notes|
 |:--------|:-----|-------|
@@ -59,17 +58,18 @@ TOP: (NodeMCU side)
 |D1|[BAT43](https://amzn.to/2jFCRqv) Schottky Diode|Used between RST and D0 pins on the NodeMCU to prevent boot-up issues during flashing|
 |DHT|[DHT22](https://amzn.to/2l98yZL) Temperature/Humidity sensor|Used when base baord is used as a remote temperature/humidity sensor; uses D6 pin on NodeMCU|
 |I2C/LED|I2C bus connector header, to allow *daughter-boards* to connect to the Kube base board and to each other|Has both 5V and 3.3V pins, GND, SCL (D1) and SDA (D2), as well as an additional digital I/O pin (D4), commonly used in LED strip controller firmware|
+|
+
+**BOTTOM**:
 
 <img src="images\kubev2-baseboard-bottom.png" width=300>
-
-BOTTOM:
-
 
 |Device|Usage|Notes|
 |:--------|:-----|-------|
 |D1BYP, D2BYP|Used to shift (to 5V via IC1) or bypass (3.3V from the NodeMCU) the I2C Clock (D1, SCL) and Data (D2, SDA) pins within the I2C/LED header|Solder middle pad to either the SHFT (for 5V) or BYP (for 3.3v) pads.|
 |D4BYP|Used to shift (to 5V via IC1) or bypass (3.3V from the NodeMCU) the D4 LED pin within the I2C/LED header|Solder middle pad to either the SHFT (for 5V) or BYP (for 3.3v) pads.|
 |D5BYP|Used to shift (to 5V via IC1) or bypass (3.3V from the NodeMCU) the D5 EXT pin within the EXT sensor header|Solder middle pad to either the SHFT (for 5V) or BYP (for 3.3v) pads.|
+|
 
 The full schematic for the Kube baseboard is shown below: 
 
@@ -105,6 +105,10 @@ The ADIO Kube submodule can be used when more I/O is required than the NodeMCU G
 
 The ADIO submodule provides space for the [MCP23017](https://amzn.to/2lg6Qpt) 16-channel digital I/O expander, as well as a [ADS1115](https://amzn.to/2lgUYDz) 4-channel 16-bit analog ADC module. In addition, the MCP23017 address pins have been broken out into three headers (AD0, AD1, AD2), which allow addressing up to 8 different MCP23017 chips. In theory, you could stack 8 ADIO submoodules in the Kube stack, for a total of 128 digital I/O pins!
 
+<img src="images\kubev2-fullstack.jpg" height=400>
+
+##### Testing a full Kube stack with an analog differential pressure sensor connected to the ADIO submodule.
+
 <img src="images\kubev2-adio-top.png" width=300>
 
 The MCP23017 addressing is handled via jumpers on the AD0, AD1 and AD2 headers. Jumpering the left pin to the middle pin sets that address bit HIGH (1) and jumpering the right pin to the middle pin sets it LOW (0). The following table shows the complete I2C address scheme based on jumper settings:
@@ -119,6 +123,7 @@ The MCP23017 addressing is handled via jumpers on the AD0, AD1 and AD2 headers. 
 |1|0|1|0x25|
 |0|1|1|0x26|
 |1|1|1|0x27|
+|
 
 The rest of the devices on the ADIO submodule are described below:
 
@@ -134,6 +139,7 @@ The rest of the devices on the ADIO submodule are described below:
 |X6|GND terminal for the I/O signals|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
 |X7|5V power terminal for the I/O signals|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
 |I2C/LED|I2C bus connector header, to allow *daughter-boards* to connect to the Kube base board and to each other|Has both 5V and 3.3V pins, GND, SCL (D1) and SDA (D2), as well as an additional digital I/O pin (D4), commonly used in LED strip controller firmware|
+|
 
 The full schematic for the Kube IO submodule is shown below:
 
@@ -142,6 +148,36 @@ The full schematic for the Kube IO submodule is shown below:
 ### 4. OLED/AmbiMate MS4 module
 
 <img src="images\OLED.jpg" width=300>
+
+The OLED/AmbiMate submodule serves a dual purpose. It can provide a local display of all the Kube sensor values (if the OLED screen is installed), and with the optional TE AmbiMate MS4 sensor board installed, it can read values such as temperature/humidity/light/audio level/motion/CO2 level/VOCs level, and provide them via I2C to the NodeMCU.
+
+The [OLED display](https://amzn.to/2ll4BkL) used (0.96") provides a good canvas for displaying local sensor data. However, the boards used with these displays are not always standard. I have seen multiple versions of these boards, with different pinouts for the 4 pin i2C interface, e.g. GND/VCC/SCL/SDA or VCC/GND/SCL/SDA. To allow both boards to be installed on the submodule, there are 4 jumpers on the back of the board, that allow swapping of the GND/VCC pins, and SCL/SDA pins, to hopefully match any combination of pins on the widely available modules.
+
+The devices that fit on this board are as follows:
+
+**TOP**:
+
+<img src="images\kubev2-oled-top.png" width=300>
+
+|Device|Usage|Notes|
+|:--------|:-----|-------|
+|OLED|[OLED 0.96" Display](https://amzn.to/2ll4BkL)|16 channel digital I/O expander|
+|TE AmbiMate MS4 Sensor|[Full Version](https://www.arrow.com/en/products/2316852-2/te-connectivity) or [Base Version](https://www.arrow.com/en/products/2316851-1/te-connectivity) (Temp/Humidity/Light/Motion only)|Multi-sensor from TE, with temperature/humidity/motion/light/CO2/VOCs and audio level measurements|
+|I2C/LED|I2C bus connector header, to allow *daughter-boards* to connect to the Kube base board and to each other|Has both 5V and 3.3V pins, GND, SCL (D1) and SDA (D2), as well as an additional digital I/O pin (D4), commonly used in LED strip controller firmware|
+|
+
+**BOTTOM**:
+
+<img src="images\kubev2-oled-bottom.png" width=300>
+
+|Device|Usage|Notes|
+|:--------|:------|-------|
+|SJ1|First OLED pin selector|Match GND or VCC with your OLED screen's first pin, and solder that side to the middle pad|
+|SJ2|Second OLED pin selector|Match GND or VCC with your OLED screen's second pin, and solder that side to the middle pad|
+|SJ3|Third OLED pin selector|Match SCL or SDA with your OLED screen's third pin, and solder that side to the middle pad|
+|SJ4|Fourth OLED pin selector|Match SCL or SDA with your OLED screen's fourth pin, and solder that side to the middle pad|
+|EVENT_OUT|AmbiMate sensor Interrupt|Allows the use of the D4 pin on the I2C/LED header to get signal from the AmbiMate whenever a motion or sound event occurs (*Note*: This is optional and not really necessary - the ESPEasy plugin for the AmbiMate sensor constantly polls for motion events, so there should be no major delay before event and software trigger. Additionally, the use of this jumper prevents the use of the D4 pin for any other function, e.g. LED pixel control)|
+|
 
 The full schematic for the Kube OLED/AmbiMate submodule is shown below:
 
