@@ -28,7 +28,7 @@ The 6-pin header is populated with I2C signals from the NodeMCU (D1/D2), D4 pin 
 
 The different boards can be stacked in any order (with OLED board on top, of course), and multiple ADIO boards can be stacked together to expand I/O up to 128 channels.
 
-The Kube v2 supports typical ESP8266 firmwares, including [ESPEasy](https://www.letscontrolit.com/wiki/index.php?title=ESPEasy), as well as my original Kube [firmware](https://github.com/bkpsu/NodeMCU-Home-Automation-Sensor) firmware (with minor changes for pin layout). With ESPEasy, the different sensors and OLED screen can be easily connected to home automation platofrms like [openHAB](https://www.openhab.org) or [HomeAssistant](https://www.home-assistant.io/) via MQTT.
+The Kube v2 supports typical ESP8266 firmwares, including [ESPEasy](https://www.letscontrolit.com/wiki/index.php?title=ESPEasy), as well as my original Kube [firmware](https://github.com/bkpsu/NodeMCU-Home-Automation-Sensor) (with minor changes for pin layout). With ESPEasy, the different sensors and OLED screen can be easily connected to home automation platofrms like [openHAB](https://www.openhab.org) or [HomeAssistant](https://www.home-assistant.io/) via MQTT.
 
 ---
 
@@ -136,8 +136,8 @@ The rest of the devices on the ADIO submodule are described below:
 |X3|Channels 9 through 12 (top to bottom) of the MCP23017|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
 |X4|Channels 13 through 16 (top to bottom) of the MCP23017|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
 |X5|Channels 1 through 4 (top to bottom) of the ADS1115|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
-|X6|GND terminal for the I/O signals|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
-|X7|5V power terminal for the I/O signals|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|X6 & X7|GND terminals for the I/O signals|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
+|X8|5V power terminals for the I/O signals|Wired in using [4-pin screw terminals](https://amzn.to/2lc5hbY)|
 |I2C/LED|I2C bus connector header, to allow *daughter-boards* to connect to the Kube base board and to each other|Has both 5V and 3.3V pins, GND, SCL (D1) and SDA (D2), as well as an additional digital I/O pin (D4), commonly used in LED strip controller firmware|
 
 
@@ -176,7 +176,7 @@ The devices that fit on this board are as follows:
 |SJ2|Second OLED pin selector|Match GND or VCC with your OLED screen's second pin, and solder that side to the middle pad|
 |SJ3|Third OLED pin selector|Match SCL or SDA with your OLED screen's third pin, and solder that side to the middle pad|
 |SJ4|Fourth OLED pin selector|Match SCL or SDA with your OLED screen's fourth pin, and solder that side to the middle pad|
-|EVENT_OUT|AmbiMate sensor Interrupt|Allows the use of the D4 pin on the I2C/LED header to get signal from the AmbiMate whenever a motion or sound event occurs (*Note*: This is optional and not really necessary - the ESPEasy plugin for the AmbiMate sensor constantly polls for motion events, so there should be no major delay before event and software trigger. Additionally, the use of this jumper prevents the use of the D4 pin for any other function, e.g. LED pixel control)|
+
 
 
 The full schematic for the Kube OLED/AmbiMate submodule is shown below:
