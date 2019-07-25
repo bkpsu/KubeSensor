@@ -5,13 +5,13 @@ Repository for the Kube home automation multi sensor platform
 
 The Kube V2 builds on the previous [design](https://www.thingiverse.com/thing:2539897), incorporating improvements to modularity, support for additional sensors, and building ease.
 
-<img src="images\kubev1v2sbs.jpg" width=40%>    
+<img src="images\kubev1v2sbs.jpg" width="40%">    
 
 ##### Original Kube (left) and Kube V2 (right)
 
 The main design improvement for Kube V2 is that all components are installed on dedicated PCBs, removing the need for wiring, and the PCBs are connected to each other via long headers, which allow the different "modules" to snap together to form a complete Kube.
 
-<img src="images\kubev2-snap.jpg" width=40%>
+<img src="images\kubev2-snap.jpg" width="40%">
 
 ##### OLED module (top) with male headers that snap into the base board (bottom) with tabs on the 3d printed enclosures holding the module in place
 
@@ -22,7 +22,7 @@ The 6-pin header is populated with I2C signals from the NodeMCU (D1/D2), D4 pin 
 3. Analog/Digital IO module (offering expansion of Digital I/O up to 128 signals and 4 channels of 16-bit ADC analog)
 4. OLED/AmbiMate sensor module (offering a 0.96" OLED screen for local sensor data display and support for the multiple sensor AmbiMate MS4 board from TE Connectivity)
 
-<img src="images\kubev2-stack.jpg" width=400>
+<img src="images\kubev2-stack.jpg" width="400">
 
 ##### Kube stack with boards 1 (Base Module) and 4 (OLED/AmbiMate) shown, comprising a multi sensor
 
@@ -38,17 +38,17 @@ This section will describe the currently available Kube module boards in detail,
 
 ### 1. Kube Base Module
 
-<img src="images\kubev2-baseboard.jpg" width=300>
+<img src="images\kubev2-baseboard.jpg" width="300">
 
 The Kube Base module is the only **required** board in the Kube stack. It contains the headers for a [NodeMCU](https://amzn.to/2l9GGET) v0.9, v2 (LoLin v3 works, but won't fit the enclosure), as well as breakout headers for all of the NodeMCU pins. With just the Kube Base module, a NodeMCU, a DHT22 sensor, and an OLED screen, you can create [this sensor](https://www.thingiverse.com/thing:2539897):
 
-<img src="images\kubev1.png" width=300>
+<img src="images\kubev1.png" width="300">
 
 The base module contains the following features/headers:
 
 **TOP**: (NodeMCU side)
 
-<img src="images\kubev2-baseboard-render.png" width=300>
+<img src="images\kubev2-baseboard-render.png" width="300">
 
 |Device|Usage|Notes|
 |:--------|:-----|-------|
@@ -62,7 +62,7 @@ The base module contains the following features/headers:
 
 **BOTTOM**:
 
-<img src="images\kubev2-baseboard-bottom.png" width=300>
+<img src="images\kubev2-baseboard-bottom.png" width="300">
 
 |Device|Usage|Notes|
 |:--------|:-----|-------|
@@ -77,7 +77,7 @@ The full schematic for the Kube baseboard is shown below:
 
 ### 2. Power Supply Module
 
-<img src="images\kubev2-psuboard.jpg" width=300>
+<img src="images\kubev2-psuboard.jpg" width="300">
 
 The Kube Power supply submodule offers several options to provide the 5VDC power required to run the NodeMCU and the entire Kube stack. It is *generally* not required, since it's perfectly fine to power the Kube with just a USB power supply via the NodeMCU's micro-USB port (accessible via a hole in the base module's enclosure), but if you're going to use more sensors, IO boards, or other external devices, it *is recommended* to supply power to the Kube stack via this PSU board module.
 
@@ -91,7 +91,7 @@ The Kube PS board module provides three possible configurations, each allowing d
 
 Regardless of which of the 3 power methods you're using, the power input wiring will go through the [2-pin screw terminal](https://amzn.to/2lhCMtC) (X1), with Line or DC+ on the left terminal, and Neutral or DC- on the right terminal. The line/DC+ line is [fuse-protected](https://amzn.to/2jPolfY) prior to going to the power supplies. Secure the input wiring with a zip-tie through the two holes drilled below the X1 connector.
 
-<img src="images\kubev2-psuboard-top.png" width=300>
+<img src="images\kubev2-psuboard-top.png" width="300">
 
 The full schematic for the Kube Power Supply submodule is shown below:
 
@@ -99,17 +99,17 @@ The full schematic for the Kube Power Supply submodule is shown below:
 
 ### 3. Analog/Digital I/O module
 
-<img src="images\kubev2-ioboard.jpg" width=300>
+<img src="images\kubev2-ioboard.jpg" width="300">
 
 The ADIO Kube submodule can be used when more I/O is required than the NodeMCU GPIO pins provide, or for a more precise way to bring in analog inputs into the Kube sensor.
 
 The ADIO submodule provides space for the [MCP23017](https://amzn.to/2lg6Qpt) 16-channel digital I/O expander, as well as a [ADS1115](https://amzn.to/2lgUYDz) 4-channel 16-bit analog ADC module. In addition, the MCP23017 address pins have been broken out into three headers (AD0, AD1, AD2), which allow addressing up to 8 different MCP23017 chips. In theory, you could stack 8 ADIO submoodules in the Kube stack, for a total of 128 digital I/O pins!
 
-<img src="images\kubev2-fullstack.jpg" height=400>
+<img src="images\kubev2-fullstack.jpg" height="400">
 
 ##### Testing a full Kube stack with an analog differential pressure sensor connected to the ADIO submodule.
 
-<img src="images\kubev2-adio-top.png" width=300>
+<img src="images\kubev2-adio-top.png" width="300">
 
 The MCP23017 addressing is handled via jumpers on the AD0, AD1 and AD2 headers. Jumpering the left pin to the middle pin sets that address bit HIGH (1) and jumpering the right pin to the middle pin sets it LOW (0). The following table shows the complete I2C address scheme based on jumper settings:
 
@@ -147,7 +147,7 @@ The full schematic for the Kube IO submodule is shown below:
 
 ### 4. OLED/AmbiMate MS4 module
 
-<img src="images\OLED.jpg" width=300>
+<img src="images\OLED.jpg" width="300">
 
 The OLED/AmbiMate submodule serves a dual purpose. It can provide a local display of all the Kube sensor values (if the OLED screen is installed), and with the optional TE AmbiMate MS4 sensor board installed, it can read values such as temperature/humidity/light/audio level/motion/CO2 level/VOCs level, and provide them via I2C to the NodeMCU.
 
@@ -157,7 +157,7 @@ The devices that fit on this board are as follows:
 
 **TOP**:
 
-<img src="images\kubev2-oled-top.png" width=300>
+<img src="images\kubev2-oled-top.png" width="300">
 
 |Device|Usage|Notes|
 |:--------|:-----|-------|
@@ -168,7 +168,7 @@ The devices that fit on this board are as follows:
 
 **BOTTOM**:
 
-<img src="images\kubev2-oled-bottom.png" width=300>
+<img src="images\kubev2-oled-bottom.png" width="300">
 
 |Device|Usage|Notes|
 |:--------|:------|-------|
