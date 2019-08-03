@@ -1,5 +1,5 @@
 # KubeSensor
-Repository for the Kube home automation multi sensor platform
+Kube - A modular, expandable home automation multi sensor platform
 
 ## Description
 
