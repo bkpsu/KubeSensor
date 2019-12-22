@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.4.2">
+<eagle version="9.5.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -758,6 +758,8 @@ Variant with &lt;b&gt;I2C interface&lt;/b&gt;
 <part name="OLED" library="diy-modules" deviceset="DISPLAY-OLED-128X64-I2C" device=""/>
 <part name="AM_1" library="con-lsta" library_urn="urn:adsk.eagle:library:161" deviceset="FE05-1" device="" package3d_urn="urn:adsk.eagle:package:8190/1"/>
 <part name="AM_2" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="JP1E" device="" package3d_urn="urn:adsk.eagle:package:15455/1"/>
+<part name="BMX280" library="con-lsta" library_urn="urn:adsk.eagle:library:161" deviceset="FE06-1" device="" package3d_urn="urn:adsk.eagle:package:8191/1"/>
+<part name="SJ5" library="jumper" library_urn="urn:adsk.eagle:library:252" deviceset="SJ2W" device="" package3d_urn="urn:adsk.eagle:package:15474/1"/>
 </parts>
 <sheets>
 <sheet>
@@ -795,6 +797,14 @@ Variant with &lt;b&gt;I2C interface&lt;/b&gt;
 <instance part="AM_2" gate="A" x="58.42" y="-17.78" smashed="yes" rot="R270">
 <attribute name="NAME" x="58.42" y="-16.51" size="1.778" layer="95"/>
 <attribute name="VALUE" x="58.42" y="-23.495" size="1.778" layer="96"/>
+</instance>
+<instance part="BMX280" gate="G$1" x="78.74" y="-53.34" smashed="yes" rot="MR90">
+<attribute name="VALUE" x="68.58" y="-54.61" size="1.778" layer="96" rot="MR90"/>
+<attribute name="NAME" x="89.662" y="-54.61" size="1.778" layer="95" rot="MR90"/>
+</instance>
+<instance part="SJ5" gate="G$1" x="86.36" y="-30.48" smashed="yes" rot="MR90">
+<attribute name="NAME" x="84.201" y="-25.4" size="1.778" layer="95" rot="MR180"/>
+<attribute name="VALUE" x="84.455" y="-27.94" size="1.778" layer="96" rot="MR90"/>
 </instance>
 </instances>
 <busses>
@@ -851,9 +861,15 @@ Variant with &lt;b&gt;I2C interface&lt;/b&gt;
 <junction x="50.8" y="50.8"/>
 <pinref part="AM_1" gate="G$1" pin="5"/>
 <label x="88.9" y="-20.32" size="1.778" layer="95"/>
-<wire x1="99.06" y1="-20.32" x2="71.12" y2="-20.32" width="0.1524" layer="91"/>
+<wire x1="99.06" y1="-20.32" x2="78.74" y2="-20.32" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="-20.32" x2="71.12" y2="-20.32" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="-20.32" x2="71.12" y2="-2.54" width="0.1524" layer="91"/>
 <wire x1="71.12" y1="-2.54" x2="50.8" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="-20.32" x2="78.74" y2="-35.56" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="-35.56" x2="83.82" y2="-35.56" width="0.1524" layer="91"/>
+<junction x="78.74" y="-20.32"/>
+<pinref part="BMX280" gate="G$1" pin="5"/>
+<wire x1="83.82" y1="-35.56" x2="83.82" y2="-45.72" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SCL(D1)" class="0">
@@ -876,6 +892,11 @@ Variant with &lt;b&gt;I2C interface&lt;/b&gt;
 <pinref part="AM_1" gate="G$1" pin="3"/>
 <wire x1="99.06" y1="-15.24" x2="76.2" y2="-15.24" width="0.1524" layer="91"/>
 <label x="88.9" y="-15.24" size="1.778" layer="95"/>
+<pinref part="BMX280" gate="G$1" pin="4"/>
+<wire x1="81.28" y1="-45.72" x2="81.28" y2="-38.1" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="-38.1" x2="76.2" y2="-38.1" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="-38.1" x2="76.2" y2="-15.24" width="0.1524" layer="91"/>
+<junction x="76.2" y="-15.24"/>
 </segment>
 </net>
 <net name="SDA(D2)" class="0">
@@ -897,6 +918,12 @@ Variant with &lt;b&gt;I2C interface&lt;/b&gt;
 <pinref part="AM_1" gate="G$1" pin="2"/>
 <label x="88.9" y="-12.7" size="1.778" layer="95"/>
 <wire x1="78.74" y1="-12.7" x2="99.06" y2="-12.7" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="-12.7" x2="73.66" y2="-12.7" width="0.1524" layer="91"/>
+<junction x="78.74" y="-12.7"/>
+<wire x1="73.66" y1="-12.7" x2="73.66" y2="-40.64" width="0.1524" layer="91"/>
+<wire x1="73.66" y1="-40.64" x2="78.74" y2="-40.64" width="0.1524" layer="91"/>
+<pinref part="BMX280" gate="G$1" pin="3"/>
+<wire x1="78.74" y1="-40.64" x2="78.74" y2="-45.72" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="3V3" class="0">
@@ -919,13 +946,24 @@ Variant with &lt;b&gt;I2C interface&lt;/b&gt;
 <pinref part="AM_1" gate="G$1" pin="1"/>
 <wire x1="99.06" y1="-10.16" x2="81.28" y2="-10.16" width="0.1524" layer="91"/>
 <label x="88.9" y="-10.16" size="1.778" layer="95"/>
+<wire x1="81.28" y1="-10.16" x2="81.28" y2="-22.86" width="0.1524" layer="91"/>
+<junction x="81.28" y="-10.16"/>
+<wire x1="81.28" y1="-22.86" x2="91.44" y2="-22.86" width="0.1524" layer="91"/>
+<pinref part="SJ5" gate="G$1" pin="1"/>
+<wire x1="91.44" y1="-22.86" x2="91.44" y2="-30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="5V" class="0">
 <segment>
 <pinref part="I2C/LED" gate="G$1" pin="1"/>
-<wire x1="71.12" y1="83.82" x2="71.12" y2="68.58" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="83.82" x2="71.12" y2="66.04" width="0.1524" layer="91"/>
 <label x="71.12" y="71.12" size="1.778" layer="95" rot="R90"/>
+<wire x1="71.12" y1="66.04" x2="48.26" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="66.04" x2="48.26" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="-5.08" x2="68.58" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="-5.08" x2="68.58" y2="-30.48" width="0.1524" layer="91"/>
+<pinref part="SJ5" gate="G$1" pin="3"/>
+<wire x1="68.58" y1="-30.48" x2="81.28" y2="-30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="LED(D4)" class="0">
@@ -935,9 +973,32 @@ Variant with &lt;b&gt;I2C interface&lt;/b&gt;
 <label x="81.28" y="71.12" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
+<net name="BMX_VCC" class="0">
+<segment>
+<pinref part="BMX280" gate="G$1" pin="6"/>
+<pinref part="SJ5" gate="G$1" pin="2"/>
+<wire x1="86.36" y1="-45.72" x2="86.36" y2="-35.56" width="0.1524" layer="91"/>
+</segment>
+</net>
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="101,1,55.88,-17.78,AM_2,1,,,,"/>
+<approved hash="101,1,55.88,-20.32,AM_2,2,,,,"/>
+<approved hash="104,1,73.66,38.1,OLED,GND,OP1,,,"/>
+<approved hash="104,1,76.2,38.1,OLED,VCC,OP2,,,"/>
+<approved hash="106,1,81.28,83.82,LED(D4),,,,,"/>
+<approved hash="113,1,79.0296,86.4023,I2C/LED,,,,,"/>
+<approved hash="113,1,58.42,48.9373,SJ1,,,,,"/>
+<approved hash="113,1,71.12,48.9373,SJ2,,,,,"/>
+<approved hash="113,1,83.82,48.9373,SJ3,,,,,"/>
+<approved hash="113,1,96.52,48.9373,SJ4,,,,,"/>
+<approved hash="113,1,101.642,-16.7996,AM_1,,,,,"/>
+<approved hash="113,1,58.6122,-18.0746,AM_2,,,,,"/>
+<approved hash="113,1,81.5696,-48.3023,BMX280,,,,,"/>
+<approved hash="113,1,86.36,-32.3427,SJ5,,,,,"/>
+</errors>
 </schematic>
 </drawing>
 <compatibility>
