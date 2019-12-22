@@ -149,7 +149,7 @@ The full schematic for the Kube IO submodule is shown below:
 
 <img src="images\OLED.jpg" width="300">
 
-The OLED/AmbiMate submodule serves a dual purpose. It can provide a local display of all the Kube sensor values (if the OLED screen is installed), and with the optional TE AmbiMate MS4 sensor board installed, it can read values such as temperature/humidity/light/audio level/motion/CO2 level/VOCs level, and provide them via I2C to the NodeMCU.
+The OLED/AmbiMate submodule serves a dual purpose. It can provide a local display of all the Kube sensor values (if the OLED screen is installed), and with the optional TE AmbiMate MS4 sensor board installed, it can read values such as temperature/humidity/light/audio level/motion/CO2 level/VOCs level, and provide them via I2C to the NodeMCU. In lieu of the TE Ambimate MS4, a space is provided for the cheaper (but still very precise) BME280/BMP280 sensor board.
 
 The [OLED display](https://amzn.to/2ll4BkL) used (0.96") provides a good canvas for displaying local sensor data. However, the boards used with these displays are not always standard. I have seen multiple versions of these boards, with different pinouts for the 4 pin i2C interface, e.g. GND/VCC/SCL/SDA or VCC/GND/SCL/SDA. To allow both boards to be installed on the submodule, there are 4 jumpers on the back of the board, that allow swapping of the GND/VCC pins, and SCL/SDA pins, to hopefully match any combination of pins on the widely available modules.
 
@@ -164,6 +164,7 @@ The devices that fit on this board are as follows:
 |OLED|[OLED 0.96" Display](https://amzn.to/2ll4BkL)|16 channel digital I/O expander|
 |TE AmbiMate MS4 Sensor|[Full Version](https://www.arrow.com/en/products/2316852-2/te-connectivity) or [Base Version](https://www.arrow.com/en/products/2316851-1/te-connectivity) (Temp/Humidity/Light/Motion only)|Multi-sensor from TE, with temperature/humidity/motion/light/CO2/VOCs and audio level measurements|
 |I2C/LED|I2C bus connector header, to allow *daughter-boards* to connect to the Kube base board and to each other|Has both 5V and 3.3V pins, GND, SCL (D1) and SDA (D2), as well as an additional digital I/O pin (D4), commonly used in LED strip controller firmware|
+|BMX280|[BME280/BMP280](https://amzn.to/2ZcHmcq) I2C sensor connector header|Jumper SJ5 to correct VCC (3v3 or 5V) for your sensor|
 
 
 **BOTTOM**:
@@ -176,6 +177,7 @@ The devices that fit on this board are as follows:
 |SJ2|Second OLED pin selector|Match GND or VCC with your OLED screen's second pin, and solder that side to the middle pad|
 |SJ3|Third OLED pin selector|Match SCL or SDA with your OLED screen's third pin, and solder that side to the middle pad|
 |SJ4|Fourth OLED pin selector|Match SCL or SDA with your OLED screen's fourth pin, and solder that side to the middle pad|
+|SJ5|BMx280 sensor VCC selector|If using the 4-pin (5V) unit, jumper middle pad to 5v pad, and for 6-pin (3v3) unit, jumper middle pad to 3v3 pad|
 
 
 
