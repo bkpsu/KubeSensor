@@ -124,6 +124,7 @@ The MCP23017 addressing is handled via jumpers on the AD0, AD1 and AD2 headers. 
 |0|1|1|0x26|
 |1|1|1|0x27|
 
+The ADS1115 board is also addressable, using the AADDR headers. Select addresses 0x48, 0x49, 0x4A or 0x4B by placing a jumper across one set of the jumper pins. This way, up to 4 ADIO submodules may have ADS1115 breakouts installed, for a total of 16 analog input channels.
 
 The rest of the devices on the ADIO submodule are described below:
 
