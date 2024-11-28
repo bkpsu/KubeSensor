@@ -211,6 +211,7 @@
 <text x="44.45" y="50.8" size="0.6096" layer="25" rot="R270">49</text>
 <text x="44.45" y="48.26" size="0.6096" layer="25" rot="R270">4A</text>
 <text x="44.45" y="45.72" size="0.6096" layer="25" rot="R270">4B</text>
+<text x="50.8" y="29.21" size="1.016" layer="25">GND</text>
 </plain>
 <libraries>
 <library name="con-lsta" urn="urn:adsk.eagle:library:161">

@@ -1,0 +1,24 @@
+{
+    "Header": {
+        "Comment": "All values are metric (mm)",
+        "CreationDate": "2022-12-29T05:19:20Z",
+        "GenerationSoftware": {
+            "Application": "EAGLE",
+            "Vendor": "Autodesk",
+            "Version": "9.6.2"
+        },
+        "Part": "Single"
+    },
+    "Overall": {
+        "BoardThickness": 1.57,
+        "LayerNumber": 2,
+        "Name": {
+            "ProjectId": "Kube_Base_ESP32_HiLetGo"
+        },
+        "Owner": "B K <bartus@gmail.com>",
+        "Size": {
+            "X": 42.85,
+            "Y": 54.6
+        }
+    }
+}
